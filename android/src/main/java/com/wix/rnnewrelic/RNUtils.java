@@ -39,8 +39,19 @@ public class RNUtils {
                 case Map:
                     hashMap.put(key, toHashMap(readableNativeMap.getMap(key)));
                     break;
-                case Array:
-                    hashMap.put(key, toArrayList(readableNativeMap.getArray(key)));
+                case Array: 
+                /* 
+                Comento esto y lo cambio por la línea de abajo, dado que con la original
+                obtengo el error
+                    error: incompatible types: ReadableArray cannot be converted to ReadableNativeArray
+                
+                La solución la encontre en 
+                - https://github.com/wix/react-native-newrelic/pull/28/commits/a1b64afe379b8da6d8a23948288a13c061d5d404
+                - https://github.com/wix/react-native-newrelic/pull/28
+                - https://github.com/wix/react-native-newrelic/issues/25
+                */
+                    // hashMap.put(key, toArrayList(readableNativeMap.getArray(key)));
+                    hashMap.put(key, toArrayList((ReadableNativeArray)readableNativeMap.getArray(key)));
                     break;
                 default:
                     throw new IllegalArgumentException("Could not convert object with key: " + key + ".");
@@ -74,8 +85,19 @@ public class RNUtils {
                 case Map:
                     arrayList.add(toHashMap(readableNativeArray.getMap(i)));
                     break;
-                case Array:
-                    arrayList.add(toArrayList(readableNativeArray.getArray(i)));
+                case Array: 
+                /* 
+                Comento esto y lo cambio por la línea de abajo, dado que con la original
+                obtengo el error
+                    error: incompatible types: ReadableArray cannot be converted to ReadableNativeArray
+                
+                La solución la encontre en 
+                - https://github.com/wix/react-native-newrelic/pull/28/commits/a1b64afe379b8da6d8a23948288a13c061d5d404
+                - https://github.com/wix/react-native-newrelic/pull/28
+                - https://github.com/wix/react-native-newrelic/issues/25
+                */
+                    // arrayList.add(toArrayList(readableNativeArray.getArray(i)));
+                    arrayList.add(toArrayList((ReadableNativeArray)readableNativeArray.getArray(i)));
                     break;
                 default:
                     throw new IllegalArgumentException("Could not convert object at index: " + i + ".");

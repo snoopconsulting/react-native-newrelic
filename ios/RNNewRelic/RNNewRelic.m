@@ -13,9 +13,16 @@
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(send: (NSString*)name :(NSDictionary*)args){
-  [NewRelicAgent recordEvent:name attributes:args];
+  /* 
+  Comento esto y lo cambio por la línea de abajo, dado que con la original
+  obtengo el error
+     call missing function "recordEven:attributes"
+  
+  La solución la encontre en https://github.com/wix/react-native-newrelic/issues/23
+  */
+  // [NewRelicAgent recordEvent:name attributes:args];
+  [NewRelicAgent recordCustomEvent:name attributes:args];
 }
-
 
 RCT_EXPORT_METHOD(setAttribute: (NSString*)name: (NSString*)value){
   [NewRelicAgent setAttribute:name value:value];
